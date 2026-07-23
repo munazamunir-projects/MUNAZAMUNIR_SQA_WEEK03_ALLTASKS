@@ -1,0 +1,236 @@
+{
+  "info": {
+    "_postman_id": "84fed164-6f4c-47b4-b14c-b39209f0a4d9",
+    "name": "MUNAZA MUNIR - Session 3 - Task 4 API Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56724399",
+    "_collection_link": "https://go.postman.co/collection/56724399-84fed164-6f4c-47b4-b14c-b39209f0a4d9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET - All Posts",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Check Status Code\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// Check Response Time\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "// Check Response is JSON\r",
+              "pm.test(\"Response is JSON\", function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "// Check Response is not Empty\r",
+              "pm.test(\"Response contains data\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.length).to.be.above(0);\r",
+              "});\r",
+              "\r",
+              "// Check Required Fields\r",
+              "pm.test(\"First post contains required fields\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "\r",
+              "    pm.expect(jsonData[0]).to.have.property(\"userId\");\r",
+              "    pm.expect(jsonData[0]).to.have.property(\"id\");\r",
+              "    pm.expect(jsonData[0]).to.have.property(\"title\");\r",
+              "    pm.expect(jsonData[0]).to.have.property(\"body\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Single Post",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Invalid Post (Negative Test)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/99999",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "99999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Create Post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"MUNAZA MUNIR-SQA Internship\",\r\n  \"body\": \"Learning Postman API Testing\",\r\n  \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "INVALID POST NEGATIVE",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/posts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Title",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"MUNAZA MUNIR-Updated Title\",\r\n  \"body\": \"Updated Body\",\r\n  \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"MUNAZA MUNIR-Patched Title\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/posts/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
